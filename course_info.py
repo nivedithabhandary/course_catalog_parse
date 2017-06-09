@@ -39,9 +39,13 @@ def convert(fname, pages=None):
 
 # List all course IDs
 page = convert('catalog-2016-2017.pdf',[1028])
-start = re.findall(r'(\A[A-Z]+\s[0-9]+\.)\s([A-Za-z\t .]+)', page)
-with_char = re.findall(r'(\n[A-Z]+\s[0-9]+[A-Z]\.)\s([A-Za-z\t .]+)',page)
-without_char = re.findall(r'(\n[A-Z]+\s[0-9]+\.)\s([A-Za-z\t .]+)',page)
+#start = re.findall(r'(\A[A-Z]+\s[0-9]+\.)\s([A-Za-z\t .]+)', page)
+#with_char = re.findall(r'(\n[A-Z]+\s[0-9]+[A-Z]\.)\s([A-Za-z\t .]+)',page)
+#without_char = re.findall(r'(\n[A-Z]+\s[0-9]+\.)\s([A-Za-z\t .]+)',page)
+start = re.findall(r'(\A[A-Z]+\s[0-9]+\.)\s([A-Za-z\t .]+\n)(.*?Prerequisite)', page, flags=re.DOTALL)
+with_char = re.findall(r'(\n[A-Z]+\s[0-9]+[A-Z]\.)\s([A-Za-z\t .]+\n)(.*?Prerequisite)',page, flags=re.DOTALL)
+without_char = re.findall(r'(\n[A-Z]+\s[0-9]+\.)\s([A-Za-z\t .]+\n)(.*?Prerequisite)',page,flags=re.DOTALL)
+
 course_id = []
 course_id.extend(start)
 course_id.extend(with_char)
